@@ -1,0 +1,81 @@
+body{
+  font-family: 'Nanum Myeongjo', serif;
+  background-image: url('img/paper.jpg');
+}
+
+ul{
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+}
+
+button{
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.all{
+  margin: auto;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* paper title */
+.title{
+  font-size: 8rem;
+  color: rgb(222, 47, 47);
+}
+
+.all_todo{
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+}
+
+/* month todo-list */
+#month{
+  font-size: 50px;
+  color: rgb(222, 47, 47);
+  font-weight: 280;
+}
+
+.todo_month{
+  height: 200px;
+  padding: 0 20px;
+}
+
+.monthly__check{
+  transition: all 300ms ease-in;
+}
+
+.monthly__check:hover{
+  transform: scale(0.7);
+}
+/* daily todo-list */
+#day{
+  font-size: 50px;
+  color: rgb(222, 47, 47);
+  font-weight: 280;
+}
+
+.todo_daily{
+  height: 200px;
+  padding: 0 20px;
+}
+
+.daily__button{
+  transition: all 300ms ease-in;
+}
+
+.daily__button:hover{
+  color: white !important;
+  transform: scale(0.7);
+}
+/* p. 버튼-텍스트 간격 맞추고 싶은데 */
+.todo_daily span{
+  width: 80%;
+}

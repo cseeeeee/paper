@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paper</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="#">
+</head>
+<body>
+  <div class="all">
+    <h1 class="title">paper</h1>
+    <section class="all_todo">
+      <section class="todo_month"
+  id="todo-month-form">
+    <form id="todo-month-form">
+      <h3 id="month"></h3>
+      <input type="text" placeholder="What are you going to do month?" required/>
+    </form>
+  <ul id="todo-month-list"></ul>
+  </section>
+  <section class="todo_daily"
+  id="todo-form">
+    <form id="todo-form">
+      <h3 id="day"></h3>
+      <input type="text"
+      id="input-month"
+      placeholder="What are you going to do today?" required/>
+    </form>
+  <ul id="todo-list"></ul>
+  </section>
+    </section>
+  </div>
+
+  <footer class="all_web">
+    <!-- <section id="velog">Go to Velog Page</section> -->
+    <!-- <section id="nomord-coder">Go to Normord-Corder Page</section> -->
+  </footer>
+  
+
+
+  <script type="module" src="js/todoDaily.mjs"></script>
+  <script type="module" src="js/todoMonthly.mjs"></script>
+
+</body>
+</html>
