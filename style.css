@@ -55,6 +55,7 @@ button{
 .monthly__check:hover{
   transform: scale(0.7);
 }
+
 /* daily todo-list */
 #day{
   font-size: 50px;
@@ -75,7 +76,7 @@ button{
   color: white !important;
   transform: scale(0.7);
 }
-/* p. 버튼-텍스트 간격 맞추고 싶은데 */
+
 .todo_daily span{
   width: 80%;
 }
