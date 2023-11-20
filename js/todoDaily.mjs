@@ -1,6 +1,7 @@
 const toDoForm=document.querySelector('#todo-form');
 const toDoInput=document.querySelector('#todo-form input');
 const toDoList=document.querySelector('#todo-list');
+const doneList=document.querySelector("#done-list");
 const dayTitle=document.querySelector('#day');
 const currentDate=new Date();
 const currentDay=currentDate.getDate();
@@ -18,16 +19,26 @@ function saveToDos(){
 function doneToDo(e){
   const li = e.target.parentElement;
   if(li.style.color==='gray'){
-    li.style.textDecoration='line-through';
-    li.style.opacity=0.5;
-    li.isChecked=1;
-    li.style.color='black';
-  }
-  else{
     li.style.textDecoration='none';
     li.style.opacity=1;
-    console.log(1);
-    li.isChecked=0;
+    li.style.color='black';
+      toDos.forEach( todo =>{
+        if(todo.id == li.id){
+          todo.isChecked=0;
+        }
+      })
+    
+  }
+  else{
+    li.style.textDecoration='line-through';
+    li.style.color='gray';
+    li.style.opacity=0.5;
+    toDos.forEach( todo =>{
+      if(todo.id == li.id){
+        todo.isChecked=1;
+      }
+      // doneList.append(li);
+    })
   }
   saveToDos();
 }
@@ -53,11 +64,11 @@ function paintToDo(newTodo){
 
   toDoList.appendChild(li);
 
-  if(newTodo.isChecked){
-    li.style.color='gray';
-    li.textDecoration='line-through';
-    li.isChecked=0;
-  }
+  // if(newTodo.isChecked){
+    // li.textDecoration='line-through';
+    // li.style.color='gray';
+    // li.isChecked=0;
+  // }
 
   span.addEventListener('dblclick',function(){
     span.style.display='none';
@@ -83,7 +94,7 @@ function handleToDoSubmit(e){
   const newTodoObj={
     text: newTodo,
     id: Date.now(),
-    isChecked: 0,
+    isChecked: 0,   //체크: false -> 안되어있다!
   };
   toDos.push(newTodoObj);
   paintToDo(newTodoObj);
@@ -94,10 +105,11 @@ toDoForm.addEventListener('submit',handleToDoSubmit);
 
 const savedToDos=localStorage.getItem(TODOS_KEY);
 if(savedToDos){
-  if(savedToDos !== null){
-    const parsedToDos = JSON.parse(savedToDos);
-    toDos = parsedToDos;
-    parsedToDos.forEach(paintToDo);
+  toDos= JSON.parse(savedToDos);
+  if(toDos[0]){
+    toDos.forEach( todo =>{
+      paintToDo(todo)
+    });
   }
 }
 
