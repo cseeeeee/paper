@@ -16,17 +16,34 @@ function saveToDos(){
   localStorage.setItem(TODOSMONTHLY_KEY,JSON.stringify(toDosMonthly));
 }
 
-function deleteToDo(e){
-  // console.log('deleting...');
-  // console.log(event);
-
+function doneTodoMonthly(e){
   const li=e.target.parentElement;
-  // li.remove();
-  li.style.textDecoration='line-through';
-  li.style.color='gray';
-  li.style.opacity=0.7;
-  toDosMonthly=toDosMonthly.filter((todoMonthly)=> todoMonthly.id !== parseInt(li.id));
-  saveToDos();
+  if(li.style.color=='gray'){
+    li.style.color='black';
+    li.style.textDecoration='none';
+    li.style.opacity=1;
+
+    console.log(newTodoObj.id);
+    console.log(li.id);
+
+
+    toDosMonthly.forEach( todo =>{
+      if(todo.id==li.id){
+        console.log(todo.id);
+        console.log(li.id);
+        todo.isChecked=0;
+      }
+    })
+  }else{
+    li.style.color='gray';
+    li.style.textDecoration='line-through';
+    li.style.opacity=0.5;
+    toDosMonthly.forEach( todo =>{
+      if(todo.id==li.id){
+        todo.isChecked=1;
+      }
+    })
+  }
 }
 
 function paintToDo(newTodo){
@@ -37,7 +54,7 @@ function paintToDo(newTodo){
   const button=document.createElement('button');
   button.classList.add('monthly__check');
   button.innerText='✔️';
-  button.addEventListener('click',deleteToDo);
+  button.addEventListener('click',doneTodoMonthly);
 
   li.appendChild(button);
   li.appendChild(span);
@@ -50,7 +67,8 @@ function handleToDoSubmit(e){
   toDoInputMonth.value='';
   const newTodoObj={
     text: newTodo,
-    id: Date.now()
+    id: Date.now(),
+    isChecked: 0
   }
 
   toDosMonthly.push(newTodoObj);
@@ -61,8 +79,11 @@ function handleToDoSubmit(e){
 toDoFormMonth.addEventListener('submit',handleToDoSubmit);
 
 const savedToDosMonthly=localStorage.getItem(TODOSMONTHLY_KEY);
-if(savedToDosMonthly !== null){
+if(savedToDosMonthly){
   const parsedToDos=JSON.parse(savedToDosMonthly);
-  toDosMonthly=parsedToDos;
-  parsedToDos.forEach(paintToDo);
+  if(parsedToDos){
+    parsedToDos.forEach( todo =>{
+      paintToDo(todo);
+    })
+  }
 }
