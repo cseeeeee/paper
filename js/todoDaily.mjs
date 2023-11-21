@@ -3,14 +3,22 @@ const toDoInput=document.querySelector('#todo-form input');
 const toDoList=document.querySelector('#todo-list');
 const doneList=document.querySelector("#done-list");
 const dayTitle=document.querySelector('#day');
-const currentDate=new Date();
-const currentDay=currentDate.getDate();
+const currentDay=new Date().getDate();
 
 dayTitle.textContent=currentDay+'日';
 
 let toDos=[];
-
 const TODOS_KEY='todos';
+
+function updateDate(todo){
+  const todoDate=new Date(todo.id).getDate()
+  // console.log('todoDate: ',todoDate);
+  // console.log('currentDay: ',currentDay);
+  if(currentDay !== todoDate){
+    toDos=[];
+    saveToDos()
+  }
+}
 
 function saveToDos(){
   localStorage.setItem(TODOS_KEY,JSON.stringify(toDos));    //localstorage에는 문자열만 저장할 수 있기 때문에 변수->문자열로 변환
@@ -27,6 +35,8 @@ function doneToDo(e){
           todo.isChecked=0;
         }
       })
+      li.remove();
+      toDoList.appendChild(li);
     
   }
   else{
@@ -37,8 +47,9 @@ function doneToDo(e){
       if(todo.id == li.id){
         todo.isChecked=1;
       }
-      // doneList.append(li);
     })
+    li.remove();
+    doneList.appendChild(li);
   }
   saveToDos();
 }
@@ -64,11 +75,12 @@ function paintToDo(newTodo){
 
   toDoList.appendChild(li);
 
-  // if(newTodo.isChecked){
-    // li.textDecoration='line-through';
-    // li.style.color='gray';
-    // li.isChecked=0;
-  // }
+  if(newTodo.isChecked){
+    li.textDecoration='line-through';
+    li.style.color='gray';
+    li.style.opacity=0.5;
+    li.isChecked=0;
+  }
 
   span.addEventListener('dblclick',function(){
     span.style.display='none';
@@ -109,8 +121,7 @@ if(savedToDos){
   if(toDos[0]){
     toDos.forEach( todo =>{
       paintToDo(todo)
+      updateDate(todo)
     });
   }
 }
-
-// commit test
