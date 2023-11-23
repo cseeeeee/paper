@@ -1,6 +1,7 @@
 const toDoFormMonth=document.querySelector('#todo-month-form');
 const toDoInputMonth=document.querySelector('#todo-month-form input');
 const toDoListMonth=document.querySelector('#todo-month-list');
+const doneListMonth=document.querySelector("#done-month-list");
 const monthTitle=document.querySelector('#month');
 const months=['1','2','3','4','5','6','7','8','9','10','11','12'];
 const currentMonth=new Date().getMonth();
@@ -25,45 +26,75 @@ function saveToDos(){
 
 function doneTodoMonthly(e){
   const li=e.target.parentElement;
-  if(li.style.color=='gray'){
+  if(li.style.color==='gray'){
     li.style.color='black';
     li.style.textDecoration='none';
     li.style.opacity=1;
 
     toDosMonthly.forEach( todo =>{
       if(todo.id==li.id){
-        console.log(0);
-        console.log(todo.id);
-        console.log(li.id);
         todo.isChecked=0;
       }
+      li.remove();
+      toDoListMonth.append(li);
     })
   }else{
     li.style.color='gray';
-    li.style.textDecoration='line-through';
+    // li.style.textDecoration='line-through';
     li.style.opacity=0.5;
     toDosMonthly.forEach( todo =>{
       if(todo.id==li.id){
-        console.log(1);
         todo.isChecked=1;
       }
+      li.remove();
+      doneListMonth.append(li);
     })
   }
+  saveToDos()
 }
 
 function paintToDo(newTodo){
   const li=document.createElement('li');
   li.id=newTodo.id;
-  const span=document.createElement('span');
-  span.innerText=newTodo.text;
+  const editInput=document.createElement('input');
+  editInput.type='text';
+  editInput.style.display='none';
   const button=document.createElement('button');
   button.classList.add('monthly__check');
   button.innerText='✔️';
   button.addEventListener('click',doneTodoMonthly);
 
+  const span=document.createElement('span');
+  span.innerText=newTodo.text;
+  
+
   li.appendChild(button);
+  li.appendChild(editInput);
   li.appendChild(span);
   toDoListMonth.appendChild(li);
+
+  if(newTodo.isChecked){
+    li.style.color='gray';
+    li.textDecoration='line-through';
+    li.style.opacity=0.5;
+    li.isChecked=0;
+  }
+
+  span.addEventListener('dblclick',function(){
+    span.style.display='none';
+    editInput.style.display='inline-block';
+    editInput.style.border='none';
+    editInput.value=span.textContent;
+    editInput.focus();
+  });
+
+  editInput.addEventListener('keyup',function(e){
+    if(e.key==='Enter' || e.key==='Escape'){
+      span.textContent=editInput.value;
+      span.style.display='inline-block';
+      editInput.style.display='none';
+      }
+    });
 }
 
 function handleToDoSubmit(e){
