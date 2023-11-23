@@ -11,6 +11,14 @@ monthTitle.textContent=months[currentMonth] +'月';
 let toDosMonthly=[];
 const TODOSMONTHLY_KEY='todosMonthly';
 
+function updateDate(todo){
+  const todoMonthlyDate=new Date(todo.id).getMonth()
+  if(todoMonthlyDate!==currentMonth){
+    toDosMonthly=[];
+    saveToDos();
+  }
+}
+
 function saveToDos(){
   localStorage.setItem(TODOSMONTHLY_KEY,JSON.stringify(toDosMonthly));
 }
@@ -81,6 +89,7 @@ if(savedToDosMonthly){
   if(toDosMonthly[0]){
     toDosMonthly.forEach( todo =>{
       paintToDo(todo);
+      updateDate(todo);
     })
   }
 }
