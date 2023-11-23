@@ -3,8 +3,7 @@ const toDoInputMonth=document.querySelector('#todo-month-form input');
 const toDoListMonth=document.querySelector('#todo-month-list');
 const monthTitle=document.querySelector('#month');
 const months=['1','2','3','4','5','6','7','8','9','10','11','12'];
-const currentDate=new Date();
-const currentMonth=currentDate.getMonth();
+const currentMonth=new Date().getMonth();
 
 monthTitle.textContent=months[currentMonth] +'月';
 
@@ -13,6 +12,7 @@ let toDosMonthly=[];
 const TODOSMONTHLY_KEY='todosMonthly';
 
 function saveToDos(){
+  console.log(3);
   localStorage.setItem(TODOSMONTHLY_KEY,JSON.stringify(toDosMonthly));
 }
 
@@ -23,12 +23,9 @@ function doneTodoMonthly(e){
     li.style.textDecoration='none';
     li.style.opacity=1;
 
-    console.log(newTodoObj.id);
-    console.log(li.id);
-
-
     toDosMonthly.forEach( todo =>{
       if(todo.id==li.id){
+        console.log(0);
         console.log(todo.id);
         console.log(li.id);
         todo.isChecked=0;
@@ -40,6 +37,7 @@ function doneTodoMonthly(e){
     li.style.opacity=0.5;
     toDosMonthly.forEach( todo =>{
       if(todo.id==li.id){
+        console.log(1);
         todo.isChecked=1;
       }
     })
@@ -83,6 +81,7 @@ if(savedToDosMonthly){
   const parsedToDos=JSON.parse(savedToDosMonthly);
   if(parsedToDos){
     parsedToDos.forEach( todo =>{
+      console.log(1);
       paintToDo(todo);
     })
   }
