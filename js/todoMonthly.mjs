@@ -12,7 +12,6 @@ let toDosMonthly=[];
 const TODOSMONTHLY_KEY='todosMonthly';
 
 function saveToDos(){
-  console.log(3);
   localStorage.setItem(TODOSMONTHLY_KEY,JSON.stringify(toDosMonthly));
 }
 
@@ -65,7 +64,7 @@ function handleToDoSubmit(e){
   toDoInputMonth.value='';
   const newTodoObj={
     text: newTodo,
-    id: Date.now(),
+    id: Date.now(), 
     isChecked: 0
   }
 
@@ -78,10 +77,9 @@ toDoFormMonth.addEventListener('submit',handleToDoSubmit);
 
 const savedToDosMonthly=localStorage.getItem(TODOSMONTHLY_KEY);
 if(savedToDosMonthly){
-  const parsedToDos=JSON.parse(savedToDosMonthly);
-  if(parsedToDos){
-    parsedToDos.forEach( todo =>{
-      console.log(1);
+  toDosMonthly=JSON.parse(savedToDosMonthly);
+  if(toDosMonthly[0]){
+    toDosMonthly.forEach( todo =>{
       paintToDo(todo);
     })
   }
