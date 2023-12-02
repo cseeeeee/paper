@@ -95,6 +95,7 @@ function paintToDo(newTodo){
       span.textContent=editInput.value;
       span.style.display='inline-block';
       editInput.style.display='none';
+      // toDoList.appendChild(editInput)
       }
     });
   }
@@ -106,7 +107,7 @@ function handleToDoSubmit(e){
   const newTodoObj={
     text: newTodo,
     id: Date.now(),
-    isChecked: 0,   //체크: false -> 안되어있다!
+    isChecked: 0, 
   };
   toDos.push(newTodoObj);
   paintToDo(newTodoObj);
